@@ -1,39 +1,53 @@
+let playerScore = 0;
+let computerScore = 0;
 
-// player choice
-function playerSelection() {
-    let playerChoice = prompt("What is your choice?");
-    return playerChoice;
-}
-
+const buttons = document.querySelectorAll("button");
 
 // computer choice
 function computerSelection() {
     let choices = ["rock", "paper", "scissor"];
     return choices[Math.floor(Math.random() * choices.length)];
-    // let randomNumber = Math.floor(Math.random() * (4 - 1) + 1);
-    // if (randomNumber == 1) {
-    //     return "rock"
-    // } else if (randomNumber == 2) {
-    //     return "paper"
-    // }
-    // else {
-    //     return "scissor"
-    // }
-
 }
 
-let playerWeapon = playerSelection();
-let computerWeapon = computerSelection();
+function disableButtons() {
+    buttons.forEach(elem => {
+        elem.disabled = true
+    })
+}
+
 
 // player VS computer round 
-function playRound(playerWeapon, computerWeapon) {
+function playRound(playerWeapon) {
+    let computerWeapon = computerSelection();
+    let result = "";
+
     if ((playerWeapon == "rock" && computerWeapon == "scissor") || (playerWeapon == "paper" && computerWeapon == "rock") || (playerWeapon == "scissor" && computerWeapon == "paper")) {
-        console.log(`${playerWeapon} beats ${computerWeapon} ---> Player Winssss!!!!`);
+        playerScore += 1;
+        result = `You Win! <br><br>
+        ${playerWeapon} beats ${computerWeapon}<br><br>
+        player score : ${playerScore} computer score: ${computerScore}`;
+
+        if (playerScore == 5) {
+            result += '<br><br>You won the game! Reload the page to play again'
+            disableButtons();
+        }
     } else if (playerWeapon == computerWeapon) {
-        console.log("Tie both have same weapon");
+        result = `It is a Tie. <br><br> You both chose ${playerWeapon} <br><br> player score : ${playerScore} \n computer score: ${computerScore}`;
     } else {
-        console.log(`Computer Winsss!!!! ${computerWeapon} beats ${playerWeapon}`);
+        computerScore += 1;
+        result = `You Lose. <br><br> ${computerWeapon} beats ${playerWeapon} <br><br> player score : ${playerScore} \n computer score: ${computerScore}`;
+        if (computerScore == 5) {
+            result += '<br><br> I won the game! Reload the page to play again'
+            disableButtons()
+        }
     }
+    document.getElementById('result').innerHTML = result
+    return
+
 }
 
-playRound(playerWeapon, computerWeapon);
+buttons.forEach(button => {
+    button.addEventListener("click", function () {
+        playRound(button.value);
+    })
+})
