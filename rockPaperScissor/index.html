@@ -5,13 +5,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rock Paper Scissor Game</title>
+    <link rel="stylesheet" href="./style.css">
 </head>
 
 <body>
-    <h1 style="display: flex; align-items: center; justify-content: center;"> Welcome to the rock paper & scissors</h1>
-    <button value="rock">Rock</button>
-    <button value="paper">Paper</button>
-    <button value="scissors">Scissors</button>
+    <h1 style="display: flex; align-items: center; justify-content: center;"> Rock Paper Scissors</h1>
+    <h2 style="display: flex; align-items: center; justify-content: center;">First to 5 Wins!</h2>
+
+    <div class="buttonCtn">
+        <button class="button" id="rock"><img src="./images/rock.png" alt=""></button>
+        <button class="button" id="Paper"><img src="./images/paper.png" alt=""></button>
+        <button class="button" id="Scissors"><img src="./images/scissors.png" alt=""></button>
+    </div>
+
+    <div class="displayScore">
+        <p class="playerScore"></p>
+        <p class="computerScore"></p>
+    </div>
     <div id="result"></div>
     <script src="./rockPaperScissor.js"></script>
 </body>

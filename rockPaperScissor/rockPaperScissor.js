@@ -2,6 +2,9 @@ let playerScore = 0;
 let computerScore = 0;
 
 const buttons = document.querySelectorAll("button");
+const displayScoreDiv = document.querySelector('.displayScore');
+const playerScorePara = document.querySelector('.playerScore');
+const computerScorePara = document.querySelector('.computerScore');
 
 // computer choice
 function computerSelection() {
@@ -23,31 +26,35 @@ function playRound(playerWeapon) {
 
     if ((playerWeapon == "rock" && computerWeapon == "scissor") || (playerWeapon == "paper" && computerWeapon == "rock") || (playerWeapon == "scissor" && computerWeapon == "paper")) {
         playerScore += 1;
-        result = `You Win! <br><br>
-        ${playerWeapon} beats ${computerWeapon}<br><br>
-        player score : ${playerScore} computer score: ${computerScore}`;
+        result = `You Win! You chose ${playerWeapon} & The computer chose ${computerWeapon}.`;
 
         if (playerScore == 5) {
-            result += '<br><br>You won the game! Reload the page to play again'
             disableButtons();
         }
     } else if (playerWeapon == computerWeapon) {
-        result = `It is a Tie. <br><br> You both chose ${playerWeapon} <br><br> player score : ${playerScore} \n computer score: ${computerScore}`;
+        result = `It is a Tie. You both chose ${playerWeapon}.`;
     } else {
         computerScore += 1;
-        result = `You Lose. <br><br> ${computerWeapon} beats ${playerWeapon} <br><br> player score : ${playerScore} \n computer score: ${computerScore}`;
+        result = `You Lose. The computer chose ${computerWeapon} & You chose ${playerWeapon}.`;
+        
         if (computerScore == 5) {
-            result += '<br><br> I won the game! Reload the page to play again'
             disableButtons()
         }
     }
-    document.getElementById('result').innerHTML = result
-    return
-
+    playerScorePara.innerHTML = `Player Score : ${playerScore}`;
+    computerScorePara.innerHTML = `Computer Score : ${computerScore}`;
+    document.getElementById('result').innerHTML = result;
+    return result
 }
 
 buttons.forEach(button => {
     button.addEventListener("click", function () {
-        playRound(button.value);
+        playRound(button.id);
+        if (playerScore == 5) {
+            document.getElementById('result').innerHTML = `You won the game! Reload the page to play again`;
+        } else if(computerScore == 5){
+            document.getElementById('result').innerHTML = `I won the game! Reload the page to play again`;
+        }
+
     })
 })
